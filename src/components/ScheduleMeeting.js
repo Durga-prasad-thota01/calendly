@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import '../components/meeting.css';
+import axios from 'axios';
+import moment from 'moment';
+
 export default function ScheduleMeeting() {
   let [show,setShow]=useState(true);
   let [accept, setAccept]=useState(false);
+  let [data,setData]=useState([]);
   let [decline,setDecline]=useState(false);
    let scheduleAcceptHandler=()=>{
       setShow(false);
@@ -14,189 +18,82 @@ export default function ScheduleMeeting() {
       setAccept(false);
       setDecline(true);
     }
+    React.useEffect(()=>{
+      axios.get("https://purview-sam-app.herokuapp.com/api/schedule/")
+         .then(resp=>{
+           console.log(resp.data)
+           setData(resp.data)          
+          });
+    },[])
+    
+
   return (
     <div>
-       <div class="row">
-                <div class="ntf-card">
-                 <div class=" col s6 m6 l6 xl6 ">
-                   <div class="card usr-ntf">
-                     <div class="row crd-cntt">
-                      <div class="col s2 m2 l2 xl2 img-content">
-                        <img src="./images/avatar4.png" class="usr-profile" alt="avtar"/>
-                       
-                      </div>
-                      <div class="col s6 m6 l6 xl6 usr-shd">
-                        <div class="usr-card-lab-shd">Jhon Doe</div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">access_time</i>
-                        11:00 AM-11:30 AM
-                        </div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">date_range</i>
-                        06 November 2019
-                        </div>
-                      </div>
-                      <div class="col s4 m4 l4 xl4 card-btn-ntf ">
-                      {/* <a class=" btn-small btn-ntf green accent-3">Accept</a>
-                      <a class=" btn-small btn-ntf red">Decline</a> */}
-                      {
-                        show?(
-                          <div>
-                            <a class=" btn-small btn-ntf green accent-3" onClick={scheduleAcceptHandler}>Accept</a>
-                            <a class=" btn-small btn-ntf red"onClick={scheduleDeclineHandler}>Decline</a>
-                          </div>
-                        ):""
-                      }
-                      {
-                        accept?(
-                          <div class="hide-btn-home">
-                            <a class=" btn-small btn-ntf green accent-3">Accepted</a>
-                          </div>
-                        ):""
-                      }
-                      {
-                        decline?(
-                          <div class="hide-btn-home">
-                            <a class=" btn-small btn-ntf red">Declined</a>
-                          </div>
-                        ):""
-                      }
-                      </div>
-                     </div>
+
+
+       {
+         data.map(i=>(
+           <React.Fragment>
+           <div class="row ml">
+           <div class="ntf-card">
+            <div class=" col s6 m6 l6 xl6 ">
+              <div class="card usr-ntf">
+                <div class="row crd-cntt">
+                 <div class="col s3 m3 l3 xl3 img-content">
+                   <img src="./images/avatar4.png" class="usr-profile" alt="avtar"/>
+                  
+                 </div>
+                 <div class="col s6 m6 l6 xl6 usr-shd">
+                   <div class="usr-card-lab-shd">{i.name}</div>
+                   <div class="usr-card-shd">
+                   <i class="material-icons acs-time-shd">access_time</i>
+                   {moment(i.start_date_time).format('LT')}
+                   </div>
+                   <div class="usr-card-shd">
+                   <i class="material-icons acs-time-shd">date_range</i>
+                   {moment(i.start_date_time).format('LL')}
                    </div>
                  </div>
-                 <div class=" col s12 m6 l6 xl6">
-                   <div class="card usr-ntf">
-                     <div class="row crd-cntt">
-                      <div class="col s2 s2 m2 l2 xl2 img-content">
-                        {/* <div class="avtr-img"></div>  */}
-                        <img src="./images/avatar4.png" class="usr-profile" alt="avtar"/>
-                      </div>
-                      <div class="col s6 m6 l6 xl6 usr-shd">
-                        <div class="usr-card-lab-shd">Jhon Doe</div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">access_time</i>
-                        11:00 AM-11:30 AM
-                        </div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">date_range</i>
-                        06 November 2019
-                        </div>
-                      </div>
-                      <div class="col s4 s4 m4 l4 xl4 card-btn-ntf ">
-                      <a class=" btn-small btn-ntf green accent-3">Accept</a>
-
-                      <a class=" btn-small btn-ntf red">Decline</a>
-                      </div>
+                 <div class="col s3 m3 l3 xl3 card-btn-ntf p0">
+                 {/* <a class=" btn-small btn-ntf green accent-3">Accept</a>
+                 <a class=" btn-small btn-ntf red">Decline</a> */}
+                 {
+                   show?(
+                     <div>
+                       <a class=" btn-small btn-ntf green accent-3" onClick={scheduleAcceptHandler}>Accept</a>
+                       <a class=" btn-small btn-ntf red"onClick={scheduleDeclineHandler}>Decline</a>
                      </div>
-                   </div>
+                   ):""
+                 }
+                 {
+                   accept?(
+                     <div class="hide-btn-home">
+                       <a class=" btn-small btn-ntf green accent-3">Accepted</a>
+                     </div>
+                   ):""
+                 }
+                 {
+                   decline?(
+                     <div class="hide-btn-home">
+                       <a class=" btn-small btn-ntf red">Declined</a>
+                     </div>
+                   ):""
+                 }
                  </div>
-                 <div class=" col s12 m6 l6 xl6">
-                   <div class="card usr-ntf">
-                     <div class="row crd-cntt">
-                      <div class="col s2 m2 l2 xl2 img-content">
-                        {/* <div class="avtr-img"></div>  */}
-                        <img src="./images/avatar4.png" class="usr-profile" alt="avtar"/>
-                      </div>
-                      <div class="col s6 m6 l6 xl6 usr-shd">
-                        <div class="usr-card-lab-shd">Jhon Doe</div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">access_time</i>
-                        11:00 AM-11:30 AM
-                        </div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">date_range</i>
-                        06 November 2019
-                        </div>
-                      </div>
-                      <div class="col s4 s4 m4 l4 xl4 card-btn-ntf ">
-                      <a class=" btn-small btn-ntf green accent-3">Accept</a>
-
-                      <a class=" btn-small btn-ntf red">Decline</a>
-                      </div>
-                     </div>
-                   </div>
-                 </div>
-                 <div class=" col s12 m6 l6 xl6 ">
-                   <div class="card usr-ntf">
-                     <div class="row crd-cntt">
-                      <div class="col s2 m2 l2 xl2 img-content">
-                        {/* <div class="avtr-img"></div>  */}
-                        <img src="./images/avatar4.png" class="usr-profile" alt="avtar"/>
-                      </div>
-                      <div class="col s6 m6 l6 xl6 usr-shd">
-                        <div class="usr-card-lab-shd">Jhon Doe</div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">access_time</i>
-                        11:00 AM-11:30 AM
-                        </div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">date_range</i>
-                        06 November 2019
-                        </div>
-                      </div>
-                      <div class="col s4 s4 m4 l4 xl4 card-btn-ntf ">
-                      <a class=" btn-small btn-ntf green accent-3">Accept</a>
-
-                      <a class=" btn-small btn-ntf red">Decline</a>
-                      </div>
-                     </div>
-                   </div>
-                 </div>
-                 <div class=" col s12 m6 l6 xl6 ">
-                   <div class="card usr-ntf">
-                     <div class="row crd-cntt">
-                      <div class="col s2 m2 l2 xl2 img-content">
-                        {/* <div class="avtr-img"></div>  */}
-                        <img src="./images/avatar4.png" class="usr-profile" alt="avtar"/>
-                      </div>
-                      <div class="col s12 m6 l6 xl6 usr-shd">
-                        <div class="usr-card-lab-shd">Jhon Doe</div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">access_time</i>
-                        11:00 AM-11:30 AM
-                        </div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">date_range</i>
-                        06 November 2019
-                        </div>
-                      </div>
-                      <div class="col s4 s4 m4 l4 xl4 card-btn-ntf ">
-                      <a class=" btn-small primary btn-ntf green accent-3">Accept</a>
-
-                      <a class=" btn-small danger btn-ntf red">Decline</a>
-                      </div>
-                     </div>
-                   </div>
-                 </div>
-                 <div class=" col s12 m6 l6 xl6">
-                   <div class="card usr-ntf">
-                     <div class="row crd-cntt">
-                      <div class="col s2 m2 l2 xl2 img-content">
-                        {/* <div class="avtr-img"></div>  */}
-                        <img src="./images/avatar4.png" class="usr-profile" alt="avtar"/>
-                      </div>
-                      <div class="col s6 m6 l6 xl6 usr-shd">
-                        <div class="usr-card-lab-shd">Jhon Doe</div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">access_time</i>
-                        11:00 AM-11:30 AM
-                        </div>
-                        <div class="usr-card-shd">
-                        <i class="material-icons acs-time-shd">date_range</i>
-                        06 November 2019
-                        </div>
-                      </div>
-                      <div class="col s4 s4 m4 l4 xl4 card-btn-ntf ">
-                      <a class=" btn-small primary btn-ntf green accent-3">Accept</a>
-
-                      <a class=" btn-small danger btn-ntf red">Decline</a>
-                      </div>
-                     </div>
-                   </div>
-                 </div>                                 
                 </div>
               </div>
+            </div>
+          
+               
+           
+               
+          
+           </div>
+         </div>
+           </React.Fragment>
+         ))
+       }
+       
     </div>
   )
 }

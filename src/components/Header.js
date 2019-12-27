@@ -1,7 +1,8 @@
 import React,{useEffect} from 'react'
 import M from "materialize-css";
 import '../components/meeting.css';
-function Header() {
+import {BrowserRouter,Route,Link,withRouter} from 'react-router-dom';
+function Header(props) {
 
   useEffect(()=>{
     
@@ -9,6 +10,12 @@ function Header() {
        M.Dropdown.init(dropdown);
     
   });
+  let LogoutHandler=(e)=>{  
+       if(window.confirm("are you sure you want to logout!"))
+           {      localStorage.clear();  
+                props.history.push("./");    
+                }        
+                  }
   return (
     <div>
       <nav>
@@ -21,20 +28,20 @@ function Header() {
        <div className="input-field inp" >
          
          <i className="material-icons prefix searchicon">search</i>
-         <input id="search" type="text" placeholder="Search"  required/>
-         <a className="waves-effect waves-light btn white black-text">Search</a>
+         <input id="search" type="text" placeholder="Search" class="search-header" required/>
+         <a className=" btn header-search-btn">Search</a>
        </div>
      </form>
     </li>
      </ul>
      <ul id="nav-mobile" className="right hide-on-med-and-down">
-    <li><b class="namcnr" >Sainik Akkasali</b></li>
+    <li><b class="namcnr" >{localStorage.getItem("user_name")}</b></li>
     <li className=" collection-item dispic dropdown-trigger" href='#' data-target='dropdown1'> 
-    <img src="./images/avatar4.png" width="45px" height="45px" className="topimg circle"/>
+    <img src={localStorage.getItem("user_profile")} width="45px" height="45px" className="topimg circle"/>
     
     <ul id='dropdown1' class='dropdown-content '>
     <li><a href="#!">My profile</a></li>
-    <li><a href="#!">Log out</a></li>
+    <li><a onClick={LogoutHandler}>Log out</a></li>
     {/* <li class="divider" tabindex="-1"></li>
     <li><a href="#!">three</a></li>
     <li><a href="#!"><i class="material-icons">view_module</i>four</a></li>
@@ -54,4 +61,4 @@ function Header() {
     </div>
   )
 }
-export default Header;
+export default withRouter(Header);

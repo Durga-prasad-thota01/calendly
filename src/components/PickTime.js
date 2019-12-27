@@ -1,76 +1,224 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import {
   
-  Link,
+  Link,withRouter
   
 } from 'react-router-dom';
-
+import axios from 'axios';
+import moment from 'moment';
 import '../components/meeting.css';
 import Meeting from './Meeting';
-import MyCalendar from './MyCalendar';
-export default function PickTime() {
+import PickCalendar from './PickCalendar';
+ function PickTime( props) {
+  
    let [show, setShow] = useState(true);
-   const showHandler=()=>{
-    setTimeout(() => setShow(false), 0);
-    // setShow(false);
+  // let show.[null]=true
+   let [data,setData]=useState([]);
+   let[index,setIndex]=useState('')
+   
+  //  useEffect(()=>{
+  //   if (!localStorage.length) 
+  //   {         
+  //        props.history.push("./"); 
+  //              }
+  //              let dt=localStorage.getItem("user_date")
+  //             //  alert(dt.length)
+  //              if(!dt.length){
+  //                props.history.push(`./Meeting/${localStorage.getItem("user_email")}/`)
+  //              }
+  //             //  setDate(localStorage.getItem("user_date"))
+              
+  //             },[])
+
+  let confirmClick=(time)=>{
+    if(time){
+      localStorage.setItem("time",time);
+      props.history.push("/UserDetails")
+    }
     
+  }
+
+   useEffect(()=>{
+
+    // if (!localStorage.length) 
+    // {
+    //      props.history.push("./"); 
+    //            }
+            let id=localStorage.getItem("user_id1")
+            console.log(id)
+               let dt=localStorage.getItem("user_date")
+              //  alert(dt.length)
+              //  if(!dt.length){
+              //    props.history.push(`./Meeting/${localStorage.getItem("user_email")}/`)
+              //  }
+    axios.get(`https://sam-project.herokuapp.com/api/setavailability/${id}/`)
+    
+  // { headers: {"Authorization" : `Bearer ${localStorage.getItem("access_token")}`}})
+  .then(resp=>{
+    console.log(resp.data)
+    // alert(resp.data)
+    // let available=resp.data.filter(i=>{
+    //   // console.log(i.user_id,localStorage.getItem("user_id"))
+    //   // alert(i.user_id==localStorage.getItem("user_id1"))
+    //   return i.user_id==id
+     
+    // })
+  //  alert(available[0].length)
+  // console.log(available)
+    // available.map(i=>{
+     
+    //  alert(i.from_time)
+    //  alert(i.to_time)
+    // let myStartDate = new Date(i.to_time);
+    // alert(myStartDate)
+    let fdate=resp.data.from_time;    
+    let tdate=resp.data.to_time;
+   console.log(fdate,moment({ fdate }).format('h:mm:ss')) 
+  //      let num=[];
+  //       for( let i=fdate;i<tdate;i++){
+  //    num.push(i);
+  //  }
+  const hours = [];
+    for(let hour = parseFloat(fdate); hour < parseFloat(tdate); hour++) {
+      hours.push(moment({ hour }).format('h:mm A'));
+      hours.push(
+          moment({
+              hour,
+              minute: 30
+          }).format('h:mm A')
+      );
+  }
+     if(hours){
+      //  console.log(hours)
+       setData(hours)
+       
+     }
+  // })
+    // console.log(available)
+    // alert(available.length) 
+    // if(available.length){
+    //   props.history.push("/");
+    // }
+    // setAvailabilty(available)
+  }
+  )
+  },[])
+  //  let [date,setDate]=useState('');
+   let date=localStorage.getItem("user_date")
+console.log(date)
+   var weekday = new Array(7);
+  weekday[0] = "Sunday";
+  weekday[1] = "Monday";
+  weekday[2] = "Tuesday";
+  weekday[3] = "Wednesday";
+  weekday[4] = "Thursday";
+  weekday[5] = "Friday";
+  weekday[6] = "Saturday";
+  // alert(weekday[date.getDay()])
+  // let available = weekday[date.getDay()]
+  var month = new Array();
+  month[0] = "January";
+  month[1] = "February";
+  month[2] = "March";
+  month[3] = "April";
+  month[4] = "May";
+  month[5] = "June";
+  month[6] = "July";
+  month[7] = "August";
+  month[8] = "September";
+  month[9] = "October";
+  month[10] = "November";
+  month[11] = "December";
+
+  
+  // var m = month[date.getMonth()];
+  // var dd1 = String(date.getDate()).padStart(2, '0');
+//  let userday=w+","+m+" "+dd1;
+
+  
+   let showHandler=(i,index)=>{
+     alert(index)
+    // setTimeout(() => setShow(false), 0);
+    // show.[index]=false;
+    setShow(false);
+    // setData.filter(i=>{
+    //   return i[0].id!=e 
+    // })   
+     
    }
    let submitButton=(e)=>{
     e.preventDefault();
-    alert("hgh")
+    // alert("hgh")
    }
-
+   console.log(data)
+    let email=localStorage.getItem('user_name1')
     return (
         <div>           
              <div class="card pick-card">
               <div class="row">
-                <div class="col s8 m8 l xl8 pick-time-card">
+                <div class="col s7 m7 l7 xl7 pick-time-card">
                    <div class="meet-card pickcard">
                      {/* <div class=""> */}
-                      <Link to="Meeting" class="material-icons meet-icon"></Link>
-                          {/* <div class="meet-icon"></div>   */}
+
+                      <Link to="/Meeting/${email)}/" class="material-icons meet-icon"></Link>
+                          {/* <div class="meet-icon"></div>  */}
                      {/* </div> */}
-                      <div class="event-title">John Doe</div>
+                      <div class="event-title">{localStorage.getItem("user_name1")}</div>
                         <div class="meeting-time">30 minutes of meeting</div>
                          <div class="row time-row">
-                           <div class="col s1 m1 l1 xl1  mins"><i class="material-icons">access_time</i></div>
-                           <div class="col s11 m11 l11 xl11 p0  "><span class="mins">30 mins</span></div>
+                           <div class="col s1 m1 l1 xl1  mins">
+                             {/* <i class="material-icons">access_time</i> */}
+                             <div class="min-clock"></div>
+                             </div>
+                           <div class="col s11 m11 l11 xl11 p0 ml5 "><span class="mins">30 mins</span></div>
                          </div>
                          <div class="select-time-pick">Select a Date and Time </div>
                        <div class="calendar-wdt">
-                          <MyCalendar/>
+                        <PickCalendar/>
                       </div>
                     </div>  
 
                 </div>
                 
-                <div class="col s4 m4 l4 xl4">
-                   <div class="day-text">Wednesday, July 06</div>
-                   <div class="time-slot-main">                 
-                  <a class=" btn time-btn ">09:00 AM</a>
-                   <a class=" btn time-btn ">09:30 AM</a>
-                   {
-                       show ? 
-                   <a class=" btn time-btn " onClick={showHandler}>10:00 AM</a>:
-                
-                   (
-                     <div class="row hide-btn mb0">
-                        <div class="col s6 m6 l6 xl6 "><a class=" btn time-btn-hide ">10:00 AM</a></div> 
-                        <div class="col s6 m6 l6 xl6"><Link to="/UserDetails" class=" btn confirm-btn-hide ">Confirm</Link></div>
-                     </div>
-                   )
-                   
-                
-                   }
-                   <div><a class=" btn time-btn ">10:30 AM</a></div>
-                   <div><a class=" btn time-btn ">11:00 AM</a></div>
-                   <div><a class=" btn time-btn ">11:30 AM</a></div>
-                   <div><a class=" btn time-btn ">12:00 PM</a></div>
+                <div class="col s5 m5 l5 xl5 ">
+                   <div class="day-text">
+                  
+                   {date.substring(0,15)}
+                   </div>
 
-                   <div><a class=" btn time-btn ">10:30 AM</a></div>
-                   <div><a class=" btn time-btn ">11:00 AM</a></div>
-                   <div><a class=" btn time-btn ">11:30 AM</a></div>
-                   <div><a class=" btn time-btn ">12:00 PM</a></div>
+
+                   <div class="time-slot-main ">   
+                                 
+                   
+
+                   {
+                     data.map((i,index)=>(
+                     
+                    
+                       <div>
+                       
+                   
+                    {
+                    
+                      show ?  <a class=" btn time-btn" onClick={(e)=>showHandler(i,index)} >{i}</a>:
+                    (
+                      <div class="row hide-btn mb0">
+                         <div class="col s6 m6 l6 xl6 "><a class=" btn time-btn-hide ">{i}</a></div> 
+                         <div class="col s6 m6 l6 xl6 "><button class="btn confirm-btn-hide" onClick={e=>confirmClick(i)}>Confirm</button></div>
+                      </div>
+                    )
+                 
+                    }
+ 
+                       </div>
+                     ))
+                   }                                            
+
+
+
+
+
+                  
                    </div>
                 </div>
               </div>
@@ -78,3 +226,4 @@ export default function PickTime() {
         </div>
     )
 }
+export default withRouter(PickTime)

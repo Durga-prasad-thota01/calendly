@@ -1,155 +1,205 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import './meeting.css';
-import{ Link } from 'react-router-dom';
-export default function Availability(){
+import{
+   Link ,
+   withRouter,
+} from 'react-router-dom';
+import axios from 'axios';
+ function Availability(props){
  
-  let [from,setFrom]=useState();
-  let [to,setTo]=useState();
-  let [sunday,setSunday]=useState("");
-  let [monday,setMonday]=useState("");
-  let [tuesday,setTuesday]=useState("");
-  let [wednesday,setWednesday]=useState("");
-  let [thursday,setThursday]=useState("");
-  let [friday,setFriday]=useState("");
-  let [saturday,setSaturday]=useState("");
-  
-  let handleClick=(e)=>{
-      console.log(from,to,sunday,monday,tuesday,wednesday,thursday,friday,saturday);
-      
+  let [from_time,setFrom_time]=useState("");
+  let [to_time,setTo_time]=useState("");
+  let [data,setData]=useState("");
+  let [info,setInfo]=useState([]);
+  useEffect(()=>{
+    if (!localStorage.length) 
+    {         
+         props.history.push("./"); 
+               }
+              },[])
+  let handlechange=(e,day,ind)=>{
+    // alert(e+day+ind)
+
+    if(e.target.checked===true){
+      let date={"day":day};
+      let data=[...info,date];
+       setInfo(data);
+       // console.log(info)
+       }
+   else if(e.target.checked===false){
+     // alert(day+index+e)
+     let data1=info.filter(i=>{
+       // console.log(i)
+       return(
+       i.day!=day
+       )
+     })
+   setInfo(data1)
+   }
+  }
+  let submitHandler=(e)=>{
+    e.preventDefault();
+    console.log(from_time,to_time);
+    if(info.length){
+    let data={ 
+      "user_id": localStorage.getItem("user_id"),           
+      "from_time": from_time,
+      "to_time": to_time,
+      "setday": info
     }
+    console.log(data)
+      //  let token=localStorage.getItem("access_token")
+      axios.post("https://sam-project.herokuapp.com/api/setavailability/",data
+        ,
+      { headers: {"Authorization" : `Bearer ${localStorage.getItem("access_token")}`}})
+      .then(resp=>{console.log(resp.data)
+        if(resp.data){
+          localStorage.setItem("id",resp.data.id)
+          props.history.push("/Home") 
+        }          
+      }   )
+      // .then(resp=>setData(resp.data))
+  }else{
+   document.getElementById("err_msg").innerHTML = "please select your availability days?";
+  }
+}
+  
   return (
            <div>
              <div class="row wholee">
               <div class="col s6 picture">
                </div>
            <div class="col s6 mater">
+             <form onSubmit={submitHandler}>
                <div class="setavailable">Set Your Availability</div>
                   <div class="workhrs" > Working hours</div>
                    <div class="row high">
                     <div class="col s6 from-to">
                      <div class="col s3 frda"><p class="frm">From</p></div>
-                       <div class="col s6 slttime">
-                        <select class="browser-default  selbox"
-                          onChange={(e)=>setFrom(e.target.value)}
+                       <div class="col s6 slttime ">
+                        <select class="browser-default  selbox" required
+                         onChange={(e)=>setFrom_time(e.target.value)} 
                         >
-                          {/* <option value="0"  >09:00 AM</option>  */}
-                          <option value="1">09:00 AM</option>
-                          <option value="2">09:30 AM</option>
-                          <option value="3">10:00 AM</option>
-                          <option value="4">10:30 AM</option>
-                          <option value="5">11:00 AM</option>
-                          <option value="6">11:30 AM</option>
-                          <option value="7">12:00 PM</option>
-                          <option value="8">12:30 PM</option>
-                          <option value="9">01:00 PM</option>
-                          <option value="10">01:30 PM</option>
-                          <option value="11">02:00 PM</option>
-                          <option value="12">02:30 PM</option>
-                          <option value="13">03:00 PM</option>
-                          <option value="14">03:30 PM</option>
-                          <option value="15">04:00 PM</option>
-                          <option value="16">04:30 PM</option>
-                          <option value="17">05:00 PM</option>
-                          <option value="18">05:30 PM</option>
-                          <option value="19">06:00 PM</option>
-                          <option value="20">06:30 PM</option>
-                          <option value="21">07:00 PM</option>
-                          <option value="22">07:30 PM</option>
-                          <option value="23">08:00 PM</option>
-                          <option value="24">08:30 PM</option>
-                          <option value="25">09:00 PM</option>
-                          <option value="26">09:30 PM</option>
-                          <option value="27">10:00 PM</option>
-                          <option value="28">10:30 PM</option>
-                          <option value="29">11:00 PM</option>
-                          <option value="30">11:30 PM</option>
-                          <option value="31">12:00 AM</option>
-                          <option value="32">12:30 AM</option>
-                          <option value="33">01:00 AM</option>
-                          <option value="34">01:30 AM</option>
-                          <option value="35">02:00 AM</option>
-                          <option value="36">02:30 AM</option>
-                          <option value="37">03:00 AM</option>
-                          <option value="38">03:30 AM</option>
-                          <option value="39">04:00 AM</option>
-                          <option value="40">04:30 AM</option>
-                          <option value="41">05:00 AM</option>
-                          <option value="42">05:30 AM</option>
-                          <option value="43">06:00 AM</option>
-                          <option value="44">06:30 AM</option>
-                          <option value="45">07:00 AM</option>
-                          <option value="46">07:30 AM</option>
-                          <option value="47">08:00 AM</option>
-                          <option value="48">08:30 AM</option>
+                          <option value="" disabled selected>-- : --</option>
+                          <option value="09:00 AM">09:00 AM</option>
+                          <option value="09:30 AM">09:30 AM</option>
+                          <option value="10:00 AM">10:00 AM</option>
+                          <option value="10:30 AM">10:30 AM</option>
+                          <option value="11:00 AM">11:00 AM</option>
+                          <option value="11:30 AM">11:30 AM</option>
+                          <option value="12:00 PM">12:00 PM</option>
+                          <option value="12:30 PM">12:30 PM</option>
+                          <option value="13:00 PM">01:00 PM</option>
+                          <option value="13:30 PM">01:30 PM</option>
+                          <option value="14:00 PM">02:00 PM</option>
+                          <option value="14:30 PM">02:30 PM</option>
+                          <option value="15:00 PM">03:00 PM</option>
+                          <option value="15:30 PM">03:30 PM</option>
+                          <option value="16:00 PM">04:00 PM</option>
+                          <option value="16:30 PM">04:30 PM</option>
+                          <option value="17:00 PM">05:00 PM</option>
+                          <option value="17:30 PM">05:30 PM</option>
+                          <option value="18:00 PM">06:00 PM</option>
+                          <option value="18:30 PM">06:30 PM</option>
+                          <option value="19:00 PM">07:00 PM</option>
+                          <option value="19:30 PM">07:30 PM</option>
+                          <option value="20:00 PM">08:00 PM</option>
+                          <option value="20:30 PM">08:30 PM</option>
+                          <option value="21:00 PM">09:00 PM</option>
+                          <option value="21:30 PM">09:30 PM</option>
+                          <option value="22:00 PM">10:00 PM</option>
+                          <option value="22:30 PM">10:30 PM</option>
+                          <option value="23:00 PM">11:00 PM</option>
+                          <option value="23:30 PM">11:30 PM</option>
+                          <option value="00:00 AM">12:00 AM</option>
+                          <option value="00:30 AM">12:30 AM</option>
+                          <option value="01:00 AM">01:00 AM</option>
+                          <option value="01:30 AM">01:30 AM</option>
+                          <option value="02:00 AM">02:00 AM</option>
+                          <option value="02:30 AM">02:30 AM</option>
+                          <option value="03:00 AM">03:00 AM</option>
+                          <option value="03:30 AM">03:30 AM</option>
+                          <option value="04:00 AM">04:00 AM</option>
+                          <option value="04:30 AM">04:30 AM</option>
+                          <option value="05:00 AM">05:00 AM</option>
+                          <option value="05:30 AM">05:30 AM</option>
+                          <option value="06:00 AM">06:00 AM</option>
+                          <option value="06:30 AM">06:30 AM</option>
+                          <option value="07:00 AM">07:00 AM</option>
+                          <option value="07:30 AM">07:30 AM</option>
+                          <option value="08:00 AM">08:00 AM</option>
+                          <option value="08:30 AM">08:30 AM</option>
                          </select>
                    </div>
              </div>
       <div class="col s6 to-from">
             <div class="col s3 tda"><p class="toadj">To</p></div>
                   <div class="col s6 slottime"> 
-                       <select class="browser-default  selbox"
-                        onChange={(e)=>setTo(e.target.value)}
+                       <select class="browser-default  selbox" required
+                        onChange={(e)=>setTo_time(e.target.value)}
                        >
-                            <option value="1" >05:00 PM</option> 
-                            <option value="2">05:30 PM</option>
-                            <option value="3">06:00 PM</option>
-                            <option value="4">06:30 PM</option>
-                            <option value="5">07:00 PM</option>
-                            <option value="6">07:30 PM</option>
-                            <option value="7" >08:00 PM</option>
-                            <option value="8" >08:30 PM</option>
-                            <option value="9" >09:00 PM</option>
-                            <option value="10">09:30 PM</option>
-                            <option value="11">10:00 PM</option> 
-                            <option value="12">10:30 PM</option>
-                            <option value="13">11:00 PM</option>
-                            <option value="14">11:30 PM</option>
-                            <option value="15">12:00 AM</option>
-                            <option value="16">12:30 AM</option>
-                            <option value="17">01:00 AM</option>
-                            <option value="18">01:30 AM</option>
-                            <option value="19">02:00 AM</option>
-                            <option value="20">02:30 AM</option>
-                            <option value="21">03:00 AM</option>
-                            <option value="22">03:30 AM</option>
-                            <option value="23">04:00 AM</option>
-                            <option value="24">04:30 AM</option>
-                            <option value="25">05:00 AM</option>
-                            <option value="26">05:30 AM</option>
-                            <option value="27">06:00 AM</option>
-                            <option value="28">06:30 AM</option>
-                            <option value="29">07:00 AM</option>
-                            <option value="30">07:30 AM</option>
-                            <option value="31">08:00 AM</option>
-                            <option value="32">08:30 AM</option>
-                            <option value="33">09:00 AM</option>
-                            <option value="34">09:30 AM</option>
-                            <option value="35">10:00 AM</option>
-                            <option value="36">10:30 AM</option>
-                            <option value="37">11:00 AM</option>
-                            <option value="38">11:30 AM</option>
-                            <option value="39">12:00 PM</option>
-                            <option value="40">12:30 PM</option>
-                            <option value="41">01:00 PM</option>
-                            <option value="42">01:30 PM</option>
-                            <option value="43">02:00 PM</option>
-                            <option value="44">02:30 PM</option>
-                            <option value="45">03:00 PM</option>
-                            <option value="46">03:30 PM</option>
-                            <option value="47">04:00 PM</option>
-                            <option value="48">04:30 PM</option>
+                            <option value="">-- : --</option> 
+                            <option value="17:00 PM">05:00 PM</option>
+                            <option value="17:30 PM">05:30 PM</option>
+                            <option value="18:00 PM">06:00 PM</option>
+                            <option value="18:30 PM">06:30 PM</option>
+                            <option value="19:00 PM">07:00 PM</option>
+                            <option value="19:30 PM">07:30 PM</option>
+                            <option value="20:00 PM">08:00 PM</option>
+                            <option value="20:30 PM">08:30 PM</option>
+                            <option value="21:00 PM">09:00 PM</option>
+                            <option value="21:30 PM">09:30 PM</option>
+                            <option value="22:00 PM">10:00 PM</option>
+                            <option value="22:30 PM">10:30 PM</option>
+                            <option value="23:00 PM">11:00 PM</option>
+                            <option value="23:30 PM">11:30 PM</option>
+                            <option value="00:00 AM">12:00 AM</option>
+                            <option value="00:30 AM">12:30 AM</option>                      
+                          <option value="01:00 AM">01:00 AM</option>
+                          <option value="01:30 AM">01:30 AM</option>
+                          <option value="02:00 AM">02:00 AM</option>
+                          <option value="02:30 AM">02:30 AM</option>
+                          <option value="03:00 AM">03:00 AM</option>
+                          <option value="03:30 AM">03:30 AM</option>
+                          <option value="04:00 AM">04:00 AM</option>
+                          <option value="04:30 AM">04:30 AM</option>
+                          <option value="05:00 AM">05:00 AM</option>
+                          <option value="05:30 AM">05:30 AM</option>
+                          <option value="06:00 AM">06:00 AM</option>
+                          <option value="06:30 AM">06:30 AM</option>
+                          <option value="07:00 AM">07:00 AM</option>
+                          <option value="07:30 AM">07:30 AM</option>
+                          <option value="08:00 AM">08:00 AM</option>
+                          <option value="08:30 AM">08:30 AM</option>
+                          <option value="09:00 AM">09:00 AM</option>
+                          <option value="09:30 AM">09:30 AM</option>
+                          <option value="10:00 AM">10:00 AM</option>
+                          <option value="10:30 AM">10:30 AM</option>
+                          <option value="11:00 AM">11:00 AM</option>
+                          <option value="11:30 AM">11:30 AM</option>
+                          <option value="12:00 PM">12:00 PM</option>
+                          <option value="12:30 PM">12:30 PM</option>
+                          <option value="13:00 PM">01:00 PM</option>
+                          <option value="13:30 PM">01:30 PM</option>
+                          <option value="14:00 PM">02:00 PM</option>
+                          <option value="14:30 PM">02:30 PM</option>
+                          <option value="15:00 PM">03:00 PM</option>
+                          <option value="15:30 PM">03:30 PM</option>
+                          <option value="16:00 PM">04:00 PM</option>
+                          <option value="16:30 PM">04:30 PM</option>
                            </select>
                          </div>
                      </div>
                </div>
        <div class="workdays">Working Days</div>
+       <p id="err_msg" class="error_message"></p>
           <div class="row weeks">
              {/* <div class="col s1 "></div> */}
                  <div class="col s1 boxbdr">
                      <label class="cont">
                        <input type="checkbox"  id="checkbox" 
-                         onChange={(e)=>setSunday(e.target.value)}
-                         value="sunday"
+                         onChange={(e)=>handlechange(e,"sun",1)}
+                      
                        /><br/>
                          <p class="sun-label ">Sun</p>
                           <span class="checkmark">
@@ -159,7 +209,7 @@ export default function Availability(){
            <div class="col s1 boxbdr  ">
                    <label class="cont">
                      <input type="checkbox"  id="checkbox"
-                      onChange={(e)=>setMonday(e.target.value)}
+                      onChange={(e)=>handlechange(e,"mon",2)}
                       value="monday"
                      /><br/>
                         <p class=" sun-label" >Mon</p>
@@ -170,8 +220,8 @@ export default function Availability(){
              <div class="col s1 boxbdr ">
                     <label class="cont">
                       <input type="checkbox"  id="checkbox"
-                      onChange={(e)=>setTuesday(e.target.value)}
-                      value="tuesday"
+                     onChange={(e)=>handlechange(e,"tue",3)}
+                      
                       /><br/>
                         <p class=" sun-label" >Tue</p>
                           <span class="checkmark">
@@ -182,8 +232,8 @@ export default function Availability(){
                  <div class="col s1 boxbdr ">
                      <label class="cont">
                        <input type="checkbox"  id="checkbox" 
-                        onChange={(e)=>setWednesday(e.target.value)}
-                        value="wednesday"
+                       onChange={(e)=>handlechange(e,"wed",4)}
+                       
                        /><br/>
                           <p class=" sun-label" >Wed</p>
                             <span class="checkmark">
@@ -194,8 +244,8 @@ export default function Availability(){
                    <div class="col s1 boxbdr ">  
                        <label class="cont">
                          <input type="checkbox"  id="checkbox"
-                          onChange={(e)=>setThursday(e.target.value)}
-                          value="thursday"
+                          onChange={(e)=>handlechange(e,"thu",5)}
+                        
                          /><br/>
                           <p class=" sun-label" >Thu</p>
                             <span class="checkmark">
@@ -205,8 +255,8 @@ export default function Availability(){
                      <div class="col s1 boxbdr "> 
                         <label class="cont">
                           <input type="checkbox"  id="checkbox"
-                          onChange={(e)=>setFriday(e.target.value)}
-                          value="friday"
+                          onChange={(e)=>handlechange(e,"fri",6)}
+                         
                           /><br/>
                           <p class=" sun-label" >Fri</p>
                               <span class="checkmark">
@@ -217,8 +267,8 @@ export default function Availability(){
                    <div class="col s1 boxbdr " > 
                         <label class="cont">
                           <input type="checkbox"  id="checkbox"
-                           onChange={(e)=>setSaturday(e.target.value)}
-                           value="saturday"
+                          onChange={(e)=>handlechange(e,"sat",7)}
+                          
                           /><br/>
                             <p class=" sun-label ">Sat</p>
                                <span class="checkmark">
@@ -228,15 +278,18 @@ export default function Availability(){
                       </div>
           </div>
         <div class="nextb">
-            <Link to="/Home">
+            {/* <Link to="/Home"> */}
                <button class="nxt-btn"
-             onClick={handleClick}
+            //  onClick={handleClick}
             >Next</button>
-            </Link>
+            {/* </Link> */}
 
         </div>
+        </form>
       </div>
+      
      </div> 
     </div>      
   );
 }
+export default withRouter(Availability)

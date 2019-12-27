@@ -10,15 +10,26 @@ nav{
     box-shadow: none !important;
 
 }
+  /* Margins */
 .m0{
   margin:0px !important;
 }
+.mt0{
+    margin-top: 0px;
+}
+.mb0{
+    margin-bottom: 0px;  
+}
 .ml{
-margin-left: 0px ;
+margin-left: 0px !important;
 }
-.p0{
+.ml5{
+    margin-left: 5px !important;
+}
+/* Paddings */
+  .p0{
     padding: 0px !important;
-}
+   }
   /* Calendar Css*/
   .calendar-cnt{
       height:450px;
@@ -33,7 +44,7 @@ margin-left: 0px ;
   
   /* Availability Css */
   .wholee{
-    margin: 84px  223px 84px 223px !important; 
+    margin: 84px  133px 84px 133px !important; 
     background-color:#FFFFFF;
     width:1100px;
     /* margin-top: 84px;
@@ -79,7 +90,7 @@ margin-top: 16px !important;
 .to-from{
     /* margin-top: 24px !important ; */
 
- padding-left: 10px !important;
+ padding-left: 5px !important;
 }
 .frda{
     font-size: 20px;
@@ -107,7 +118,38 @@ margin-top: 16px !important;
     border-color: #707070;
     padding-left:0px !important;
 }
-.selbox{
+select.inpSelect {
+    /* //Remove original arrows */
+    -webkit-appearance: none; 
+    /* //Use png at assets/selectArrow.png for the arrow on the right */
+    /* //Set the background color to a BadAss Green color  */
+    /* background: url(assets/selectArrow.png) no-repeat right #BADA55; */
+  }
+  .selbox{
+    width:141px;
+height:35px;
+border:2px solid #707070;
+border-radius: 2px;
+color:#827CBF;
+padding: 2px !important;
+padding-left: 8px !important;
+padding-top:0px !important;
+    background-image:
+      linear-gradient(45deg, transparent 50%, #827CBF 60%),
+      linear-gradient(135deg, #827CBF 40%, transparent 50%) !important;
+    background-position:
+      calc(100% - 20px) 12px,
+      calc(100% - 10px) 12px,
+      100% 0px;
+      
+      background-size:
+      10px 10px,
+      10px 10px;
+    background-repeat: no-repeat;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+/* .selbox{
 width:141px;
 height:35px;
 border:2px solid #707070;
@@ -116,7 +158,12 @@ color:#827CBF;
 padding: 2px !important;
 padding-left: 7px !important;
 padding-top:0px !important;
-}
+} */
+.error_message{  
+    margin-left: 50px; 
+       color: red;   
+        font-size: 15px;
+        }
 .workdays{
     /* margin-top: 30px; */
     margin-top: 12px !important;
@@ -140,16 +187,8 @@ padding-top:0px !important;
 .check-color{
     /* color:#B3B1B1 !important; */
 }
-.sun-label{
-     margin-left: 0px !important;
-    margin-top: 0px !important;
-    font-size:18px;
-        /* color: #827CBF; */
-        color: #B3B1B1;
-    } 
-    .cont input:checked ~ .sun-label {
-        color: #827CBF !important;
-    }
+
+    
 
 .boxbdr{
     border:1px solid;
@@ -166,7 +205,7 @@ padding-top:0px !important;
     /* margin-top:50px; */
     margin-top: 99px !important;
 
- margin-left:362px !important;
+ margin-left:355px !important;
  width:150px;
  height:50px;
  background-color:#827CBF !important;
@@ -176,17 +215,31 @@ padding-top:0px !important;
  font-size:18px;
 }
 /* The container */
+
+.sun-label{
+    margin-left: 0px !important;
+   margin-top: 3px !important;
+   font-size:18px;
+       /* color: #827CBF; */
+       color: #B3B1B1;
+   } 
+   .cont input:checked ~ .sun-label {
+       color: #827CBF !important;
+   }
+
+
 .cont {
-  display: block;
-  position: relative;
-  padding-left: 2px !important;
-  margin-bottom: 12px;
-  cursor: pointer;
-  font-size: 22px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+ display: block;
+ position: relative;
+ padding-left: 4px !important;
+ margin-bottom: 12px;
+ cursor: pointer;
+ margin-top:6px !important;
+ /* font-size: 22px; */
+ -webkit-user-select: none;
+ -moz-user-select: none;
+ -ms-user-select: none;
+ user-select: none;
 }
 
 /* Hide the browser's default checkbox */
@@ -222,30 +275,7 @@ padding-top:0px !important;
 .cont input:checked ~ .checkmark:active {
     /* background-color:#827CBF !important; */
 }
-/* Create the checkmark/indicator (hidden when not checked) */
-/* .checkmark:after {
-  position: absolute;
-  display: none;
-          
 
-} */
-/* Show the checkmark when checked */
-/* .cont input:checked ~ .checkmark:after {
-  display: block;
-} */
-
-/* Style the checkmark/indicator */
-/* .checkmark:after {
-  left: 9px;
-  top: 5px;
-  width: 5px;
-  height: 10px;
-  border: solid white;
-  border-width: 0 3px 3px 0;
-  -webkit-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  transform: rotate(45deg);
-} */
 
 
 
@@ -261,15 +291,49 @@ padding-top:0px !important;
 
 .inp{
     position:relative;
-    left:100px;
+    left:130px;
 }
+.search-header::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    padding-left: 10px !important;
+    margin-top: 10px !important;
+    
+  }
 .searchicon{
     margin-left: 42px;
+    color:#A7A7A8;
     
 }
+/* .searchicon:hover{
+    box-shadow:#827CBF !important ;
+   
+} */
 #search{
-    width:400px;
+    width:320px;
     padding-left: 35px;
+}
+.search-header,input[type=text]:not(.browser-default):focus:not([readonly]){
+    border-bottom: 1px solid #827CBF;
+    -webkit-box-shadow: 0 1px 0 0 #827CBF;
+    box-shadow: 0 1px 0 0 #827CBF;
+}
+.header-search-btn{
+    background-color:#F8F8FB ;
+    color:#A7A7A8 ;
+    border-radius: 3px;
+    width:100px !important;
+    font-weight: 500;
+    
+}
+.header-search-btn.btn{
+    text-transform: inherit;
+    box-shadow: 0px 2px 2px;
+    background-color:#F8F8FB  !important;
+}
+a.header-search-btn.btn:hover {
+    background-color:#F8F8FB  !important;
+}
+a.header-search-btn.btn:focus{
+    background-color:#F8F8FB  !important;
 }
 .namcnr{
     margin:20px;
@@ -289,8 +353,8 @@ padding-top:0px !important;
 ul#dropdown1 {
     /* margin-top: 58px !important; */
     /* display: block; */
-    /* width: 127px;
-    left: 1396.64px; */
+    width: 123px !important;
+    left: 1225.64px !important;
     top: -58px;
      /* height: 121.2px; */
    /* transform-origin: 0px 0px;
@@ -323,13 +387,9 @@ ul#dropdown1 {
  /* Meeting page css */
 .meet-card{
     width: 700px;
-    margin: 60px 430px 60px 430px;
+    margin: 60px 330px 60px 330px;
     height:auto;
-    /* margin-top: 59px;
-    margin-left: 329px; */
-    border-radius: 15px;
-    /* box-shadow: 0px 3px 6px #00000029 !important */
-    /* background-repeat: no-repeat;*/
+    border-radius: 15px;    
     background: #FFFFFF 0% 0% no-repeat padding-box; 
     /* font-family:"regular poppins" !important; */
     font-weight: 500;
@@ -343,54 +403,67 @@ ul#dropdown1 {
       opacity: 1;
       background: transparent url('../components/images/chevron-left.svg') 0% 0% no-repeat padding-box;  
   }
-  /* .left-icon{
-      margin-top: 30px !important;
-      margin-left: 25px !important;
-      width:27px !important;
-      height:37px !important; 
-      opacity: 1;
-  }  */
+ 
   .event-title{
       font-size: 22px;
       /* margin-top: 64px !important; */
-      margin-left: 55px !important;
+      margin-left: 60px !important;
      
       /* font-family:"regular poppins" !important; */
   }
   .meeting-time{
-      font-size: 25px;
-      /* width: 299px !important;
-      height: 43px !important; */
-      /* margin-top: 93px !important; */
+      font-size: 25px;      
       margin-left: 60px !important;
       color: #919191;
       /* font-family:"regular poppins" !important; */
   }
-  .time-row{
-      margin-left: 35px !important; 
-      margin-top:5px;
-      
-  }
+  
   .mins{
       font-size: 15px;
       color: #919191;
       width:30px !important;
+     
   
+  }
+  .min-clock{
+      background-image: url(./images/clock.svg);
+      width: 17px;
+      height: 17px;
+      margin-top: 3px;
+  }
+  .mins i{
+      margin-top: 3px;
+      font-size: 18px !important;
   }
   .select-time{
       font-size: 24px;
       text-align: center;
+      margin-right: 50px;
   }
   .calendar-wdt{
       width:600px;
       margin-left: 64px;
       /* padding: 40px; */
   }
+  
 
       /* End Meeting css */
 
 
     /* calendar css */
+    .rbc-calendar{
+        width: 555px;
+    }
+    .rbc-date-cell.rbc-now {
+        font-weight: bold;
+        color:#827CBF;
+    }
+    .rbc-day-bg,.rbc-today {
+        /* background-color: #827CBF !important; */
+    }
+    .rbc-date-cell , .rbc-current,.rbc-today{
+        /* background-color:#827CBF !important; */
+    }
     span.rbc-btn-group,button:nth-child(1) {
         /* color: aqua;   */
         /* display: none !important; */
@@ -430,14 +503,12 @@ ul#dropdown1 {
     /* .rbc-month-row ,.rbc-row-bg ,.date-in-past ,.rbc-day-bg{
         pointer-events: none !important; 
     } */
-    /* .rbc-date-cell a{
-    cursor:not-allowed;
-} */
-/* .unread{
-    pointer-events: none !important;
-} */
-    
+    .rbc-date-cell{
+     font-size: 20px;
+}
     .rbc-header {
+        font-size: 20px;
+        font-weight: 500;
         border-bottom: inherit !important;
     }
     .rbc-month-view {
@@ -464,6 +535,7 @@ ul#dropdown1 {
     }
     .rbc-toolbar-label{
         margin-right: 120px !important;
+        font-size: 20px;
     }
     .rbc-toolbar button {
         padding: 3px !important;
@@ -491,7 +563,18 @@ display: none !important;
         background: #ff0000 !important;
         display: none !important;
             }
-
+       .rbc-btn-group > button:not(:first-child):not(:last-child) { 
+              border-radius: 6px;
+              background-color:#827CBF !important ;
+              color: white;
+            }
+            .rbc-btn-group > button:last-child:not(:first-child) {
+                /* border-top-left-radius: 0; */
+                /* border-bottom-left-radius: 0; */
+                border-radius: 6px;
+                background-color: #827CBF !important;
+              color: white;
+            }
       /* End calendar Css */
 
 
@@ -513,14 +596,36 @@ display: none !important;
     
     
   }
+  .time-row{
+    margin-left: 30px !important; 
+    margin-top:5px;
+    
+}
   .calendar-row{
-    margin-left: 35px !important;
+    margin-left: 30px !important;
      color:#827CBF;
     /* width:29px !important;   */
+  }
+  .access-time{
+      background-image:url(./images/clock.svg);
+      width: 17px;
+      height: 17px;
+      margin-top: 3px;
+  }
+  .calendar-icon{
+      background-image: url(./images/calendar.svg);
+      width: 18px;
+      height: 18px;
+      margin-top: 5px;
   }
   .calendar-mins{
     font-size: 18px;
     width:30px !important;
+  }
+  .calendar-mins i{
+    font-size: 18px;
+    margin-top: 5px;
+
   }
   .enter-details{
     font-size: 24px;
@@ -536,6 +641,14 @@ display: none !important;
     border-radius: 5px !important;
     /* margin-top: 8px !important; */
     /* border-bottom: none; */
+    box-shadow: none !important;
+    padding-left: 10px !important;
+}
+.add-user-input{
+    width:550px !important;
+    /* height: 100px; */
+    border: 1px solid #707070 !important;
+    border-radius: 5px !important;
     box-shadow: none !important;
     padding-left: 10px !important;
 }
@@ -557,14 +670,16 @@ display: none !important;
 
 
 .add-btn{
-    width:130px;
-    height: 35px;
+    width:132px;
+    height: 37px;
     border-radius: 5px;
     background-color: white;
     border: 1px solid #827CBF;
     color:#827CBF;
     box-shadow: none;
     text-transform: none !important;
+    font-size: 17px;
+    margin-top: 2px;
     
 }
 .chip:focus {
@@ -581,6 +696,27 @@ display: none !important;
     -webkit-box-shadow: none;
     box-shadow: none;
 } */
+
+
+.emailchips{
+
+
+}
+
+.chip.not-valid .chip-value, .chip.not-valid .chip-delete-button {
+    /* background: #ffeff1; */
+    color: #ff586c;
+}
+.chip .chip-value {
+display: contents !important; 
+    padding: 5px;
+    padding-left: 15px;
+    /* padding-right: 7.5px; */
+    /* background: #f3f3f3; */
+    color: #8dabc4;
+    font-weight: bold;
+    border-radius: 15px 0 0 15px;
+}
 .frm-label-area{
     
     margin-top: 15px;
@@ -603,6 +739,7 @@ display: none !important;
     color:white;
     box-shadow: none;
     text-transform: none !important;
+    font-size: 18px;
     
 }
 a.add-btn-meeting:hover{
@@ -630,12 +767,12 @@ a.add-btn-meeting:hover{
 /* Pick Time Css */
 .select-time-pick{
     font-size: 24px;
-    margin-left: 170px;
+    margin-left: 200px;
     
     /* text-align: center; */
 }
 .pick-card{
-    margin: 59px 258px;
+    margin: 59px 158px 60px 157px;
     border-radius: 5px;
     width:1050px;
     height: 650px !important;
@@ -644,12 +781,7 @@ a.add-btn-meeting:hover{
   
 }
 
-/* .row{
-    margin-bottom: 0px;
-} */
-/* .av-time{
-    border: 2px solid red ;
-} */
+
 
 .pickcard{
     margin: 0px;
@@ -662,14 +794,17 @@ a.add-btn-meeting:hover{
 .day-text{
     text-align: left !important;
     margin-top: 55px !important;
+    margin-left: 105px;
     color: #827CBF !important;
     font-size: 25px;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
+    padding-left: 105;
 
 }
 .time-slot-main{
     overflow-y: scroll;
     height:430px;
+    padding-left: 115px;
 }
 ::-webkit-scrollbar {
     width: 0px;
@@ -749,44 +884,53 @@ a.confirm-btn-hide:hover {
         height:auto;
    }
 .home-card{
-   margin: 50px 137px 50px 73px; 
+   margin: 50px 137px 50px 0px; 
    /* padding-left: 60px; */
-   padding: 30px 60px 30px 60px;
+   /* padding: 30px 60px 30px 60px; */
    /* height:610px !important; */
    border-radius: 5px;
 }
 .pick-link{
-    /* padding: 30px 60px; */
+    padding: 30px 60px 0px 60px;
 
+}
+.events-tabs{
+    padding: 0px 60px 0px 60px;
 }
 .usr-nam{
     font-size: 25px !important;
     text-align: left;
+    font-weight: 500;
 }
 .usr-link{
     font-size: 17px !important;
     text-align: left;
     color: #827CBF;
 }
-.img-content{
-    margin-top: 8px !important;
-    
-}
+
 .home-divider{
- 
+  margin-left:0px!important;
+    
+  
 }
-.user-img{
+/* .user-img{
     background:  url('../components/images/avatar3.png') ;
     width:67px;
     height:67px; 
     border-radius: 50%;
     margin-top: 8px !important; 
-}
+} */
 .td-mtg{
-    color:#616161;
-    font-size: 16px;
-    font-weight: 500;
-    
+    color:#616161 !important;
+    font-size: 16px !important;
+    font-weight: 500; 
+    width: 145px !important; 
+}
+.td-mtg2{
+    color:#616161 !important;
+    font-size: 16px !important;
+    font-weight: 500;  
+    width: 178px !important;  
 }
 .tabs .indicator {
 
@@ -796,22 +940,23 @@ a.confirm-btn-hide:hover {
     height: 2px;
     background-color: #827CBF !important;
     will-change: left, right;
+    border-radius: 5px;
 }
 .tabs .tab {
   
     display: inline-block;
     text-align: left;
     line-height: 48px;
-    height: 48px;
+    height: 50px;
     padding: 0;
     margin: 0;
     text-transform:none;
 }
 .tab-width{
- width: 140px !important;
+ width: 150px !important;
 }
 .tab-width2{
-    width: 160px !important;
+    width: 175px !important;
    }
 .tabs .tab a {
     /* color: rgba(238,110,115,0.7); */
@@ -829,45 +974,43 @@ a.confirm-btn-hide:hover {
     background-color: transparent;
     color: #616161;
 }
-/* a.td-mtg:active {
-    text-decoration: underline;
-  } */
-  
-/* .td-mtg:hover{
-    border-bottom: 2px solid #827CBF;  
-     border-radius: 2px  ;
-} */
 
 .ntf-card{
-    margin: 30px 0px;
+    margin-top: 30px;
    /* padding:55px; */
 }
 .usr-ntf{
     width:400px;
     height:100px;
-    /* margin-left: 70px; */
-    margin:10px 55px;
+    margin:10px 0px 30px 85px;
     border-radius: 10px;
 }
+
 .crd-cntt{
     padding:10px;
+}
+.img-content{
+    margin-top: 8px !important;
+    padding-left: 25px !important;
+    
 }
 .usr-profile{
     width:67px;
     height:67px;
     border-radius:50%;
+
 }
 .usr-card-lab{
     font-size: 17px;
     text-align: left !important;
     font-weight: 500 !important;
-    padding: 10px 4px 3px 14px !important;
+    padding: 10px 4px 3px 0px !important;
 
 }
 .usr-card-time{
     font-size: 15px;
     color:#616161;
-    padding: 0px 8px 18px 12px !important;
+    padding: 0px 8px 0px 0px !important;
     font-weight: 500 !important;
 }
 .usr-card-time i{
@@ -906,6 +1049,9 @@ a.confirm-btn-hide:hover {
     border-radius: 5px;
     margin-top: 6px !important;
     margin-bottom: 8px;
+    text-transform: none;
+    line-height: 27.4px;
+
 }
 .hide-btn-home{
     margin-top: 20px;
@@ -916,10 +1062,10 @@ a.confirm-btn-hide:hover {
 } 
    /* End Home Page css */
 
-   .usr-shd{
-       padding-left: 25px !important;
+ .usr-shd{
+       padding-left: 10px !important;
    }
-   .usr-card-shd{
+ .usr-card-shd{
     font-size: 15px;
     color:#616161;
     padding: 0px 0px 2px 0px !important;
@@ -933,6 +1079,7 @@ a.confirm-btn-hide:hover {
 
 }
 .usr-card-time-shd i{
+    margin-top: 5px;
     padding-right: 5px;
   /* padding-top:10px; */
   
@@ -951,9 +1098,7 @@ a.confirm-btn-hide:hover {
 
     /* End Schedule Meeting Css */
 
-.mb0{
-    margin-bottom: 0px;  
-}
+
 
 
 a.green.accent-3:hover {
@@ -976,20 +1121,34 @@ a.red:hover {
 
 .backimg{
     background-image: url("../components/sammin.png");
-     height: auto !important; 
-    width: 100% !important;  
+     height:768px !important;
+    width:1366px !important;   
    background-repeat: no-repeat;
    background-size: cover;
   
   }
   .googlee{
-   margin-top: 670px;
-   margin-bottom: 40px;
-   text-align: center !important;
+   margin: 600px 0px 40px 0px;
+   
+   text-align:center !important;
   }
   .signwith{
     font-size: 22px;
     font-weight: 500;
+  }
+  .google-btn{
+    height:60px !important;
+    /* width: 334px !important; */
+    background-color: #FFFFFF !important;
+    color:black !important;
+    border-radius:10px !important;
+    text-transform: inherit !important;
+    font-size: 22px !important;
+    font-weight: 500 !important;  
+  }
+  .google-btn svg g{
+      height: 35px !important;
+      width: 35px !important;
   }
   .butngoogle{
     height:60px !important;
@@ -1010,8 +1169,8 @@ a.red:hover {
   }
   .googicon{
     margin-left:10px;
+}
   
-  }
 
 /* End Login Css */
      /* Responsive for Mobile */
@@ -1057,7 +1216,7 @@ a.red:hover {
             
             /* color: #919191; */
             /* width:30px !important; */
-            margin: inherit !important;
+            /* margin: inherit !important; */
         
         }
         .calendar-cnt {
@@ -1068,11 +1227,17 @@ a.red:hover {
         }
         /* PickTime Css Responsive */
         .pick-card{
-            margin: 10px;
-            margin-left: inherit;
+            /* margin: 10px; */
+            width: inherit;
+            height: auto;
+            
+            /* margin-left: inherit; */
            
         }
         
+        /* .calendar-cnt {
+            height: 340px;
+        } */
 
         /* PickTime Css Responsive */
 
@@ -1082,7 +1247,21 @@ a.red:hover {
               margin-left: inherit;
               margin: 10px;
           }
+          .rbc-calendar{
+            width:inherit;
+        }
+        .time-row{
+            width: 100px;
+            margin-left: 100px !important;
+        }
           /* User Details Responsive */
+          /* Pick Time Css Responsive */
+          .pick-card{
+              margin: inherit;
+          }
+
+          /* End PickTime Css Responsive */
+
           /* Home Css Responsive */
           .home-card {
             margin: inherit;
@@ -1099,7 +1278,7 @@ a.red:hover {
 
           /* Home Css Responsive */
 
-
+         
 
 
      }
@@ -1115,10 +1294,9 @@ a.red:hover {
      
          /* Meeting Css Responsive */
          /* PickTime Css Responsive */
-        .pick-card{
-            /* margin: 100px; */
-            /* margin-left: inherit; */
-            
+         .pick-card{
+            /* margin:10px; */
+            /* width: inherit; */
            
         }
         
@@ -1135,7 +1313,7 @@ a.red:hover {
      /* PickTime Css Responsive */
      .pick-card{
         /* margin:10px; */
-        /* margin-left: inherit; */
+        /* width: inherit; */
        
     }
     
@@ -1159,15 +1337,29 @@ a.red:hover {
     @media only screen and (min-width: 992px) {
      /* Meeting Css Responsive */
      /* Meeting Css Responsive */
-
+       /* PickTime Css */
+       .pick-card{
+        
+       }
+       /* PickTime Css */
      /* User Details Responsive */
      .user-card{
-         margin-left: 430px;
-        /* margin: 10px; */
+         margin:0px 350px 0px 350px
+                /* margin: 10px; */
     }
     /* User Details Responsive */
     }
     @media only screen and (min-width: 1200px) {
+
+         /* Login */
+         .backimg {
+            background-image: url(/static/media/sammin.a020bc57.png);
+            /* height: auto !important; */
+            /* width: 100% !important; */
+            /* background-repeat: no-repeat; */
+            /* background-size: cover; */
+        }
+         /* Login */
         /* Meeting Css Responsive */
           
          /* Meeting Css Responsive */

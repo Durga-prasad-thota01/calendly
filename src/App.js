@@ -19,6 +19,7 @@ import Availability from './components/Availability';
 import TimeSlot from './components/TimeSlot';
 
 function App() {
+  
   return (
     <BrowserRouter>
     <div className="App">
@@ -30,7 +31,7 @@ function App() {
       
       <Route exact path="/" component={Login}/>
       <Route path="/Availability" component={Availability}/>
-      <Route path="/Meeting" component={Meeting}/>
+      <Route path="/Meeting/:email/" component={Meeting}/>
       <Route path="/UserDetails" component={UserDetails}/>
       <Route path="/PickTime" component={PickTime}/>
       <Route path="/Header" component={Header}/>
