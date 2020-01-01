@@ -696,6 +696,11 @@ display: none !important;
     -webkit-box-shadow: none;
     box-shadow: none;
 } */
+.chips-header .chips-title {
+    font-size: 0px !important;
+    color: white;
+    /* font-weight: bold; */
+}
 
 
 .emailchips{
@@ -862,6 +867,9 @@ a.time-btn-hide:hover {
 a.confirm-btn-hide:hover {
     background-color: #827CBF !important;
 }
+.btn.confirm-btn-hide:hover {
+    background-color: #827CBF !important;
+}
 .btn:hover, .btn-large:hover, .btn-small:hover {
     background-color: inherit !important;
    
@@ -1000,6 +1008,13 @@ a.confirm-btn-hide:hover {
     border-radius:50%;
 
 }
+.row .col.m6 {
+    width: 50%;
+    margin-left: 0px !important;
+    left: auto;
+    right: auto;
+}
+
 .usr-card-lab{
     font-size: 17px;
     text-align: left !important;
@@ -1108,16 +1123,7 @@ a.red:hover {
     background-color: red !important;
 }
 
-
-
-
-
-
-
-
-
 /* Login Css */
-
 
 .backimg{
     background-image: url("../components/sammin.png");

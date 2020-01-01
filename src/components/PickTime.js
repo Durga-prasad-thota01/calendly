@@ -11,10 +11,11 @@ import Meeting from './Meeting';
 import PickCalendar from './PickCalendar';
  function PickTime( props) {
   
-   let [show, setShow] = useState(true);
+   let [show, setShow] = useState(-1);
   // let show.[null]=true
    let [data,setData]=useState([]);
-   let[index,setIndex]=useState('')
+   let[index,setIndex]=useState('');
+   let [fd,setFd]=useState('');
    
   //  useEffect(()=>{
   //   if (!localStorage.length) 
@@ -44,9 +45,10 @@ import PickCalendar from './PickCalendar';
     // {
     //      props.history.push("./"); 
     //            }
-            let id=localStorage.getItem("user_id1")
+            let id=localStorage.getItem("id");
+          
             console.log(id)
-               let dt=localStorage.getItem("user_date")
+               
               //  alert(dt.length)
               //  if(!dt.length){
               //    props.history.push(`./Meeting/${localStorage.getItem("user_email")}/`)
@@ -71,15 +73,26 @@ import PickCalendar from './PickCalendar';
     //  alert(i.to_time)
     // let myStartDate = new Date(i.to_time);
     // alert(myStartDate)
-    let fdate=resp.data.from_time;    
-    let tdate=resp.data.to_time;
-   console.log(fdate,moment({ fdate }).format('h:mm:ss')) 
-  //      let num=[];
-  //       for( let i=fdate;i<tdate;i++){
-  //    num.push(i);
-  //  }
-  const hours = [];
-    for(let hour = parseFloat(fdate); hour < parseFloat(tdate); hour++) {
+    // let fdate=moment().format('LT');
+    // let fdate=resp.data.from_time;
+    let dt=localStorage.getItem("user_date");    
+    let user_date=moment(dt).format('YYYY-MM-DD');
+    let today_date=moment().format('YYYY-MM-DD');
+
+      if(user_date==today_date){
+        let fdat=moment().format('LT');
+        setFd(fdat)
+      }
+      else{
+        let fda=resp.data.from_time;
+        setFd(fda)
+      }
+      if(fd){        
+        let fdate=resp.data.from_time;            
+        let tdate=resp.data.to_time;
+        console.log(parseInt(fd),parseInt(tdate),"fd");
+        const hours = [];
+            for(let hour =parseInt(fd) ; hour < parseInt(tdate); hour++) {
       hours.push(moment({ hour }).format('h:mm A'));
       hours.push(
           moment({
@@ -89,10 +102,39 @@ import PickCalendar from './PickCalendar';
       );
   }
      if(hours){
-      //  console.log(hours)
+       console.log(hours,"timeslots")
        setData(hours)
        
      }
+      }
+      else{
+        console.log(fd,"fd");
+        let fdate=resp.data.from_time;            
+        let tdate=resp.data.to_time;
+        const hours = [];
+            for(let hour =parseInt(fd) ; hour < parseInt(tdate); hour++) {
+      hours.push(moment({ hour }).format('h:mm'));
+      hours.push(
+          moment({
+              hour,
+              minute: 30
+          }).format('h:mm')
+      );
+  }
+     if(hours){
+       console.log(hours,"timeslots")
+       setData(hours)
+       
+     }
+      }
+   
+
+
+    console.log(user_date,today_date,"user_date")
+    
+  //  console.log(parseInt(fdate),moment({ fdate }).format('h:mm:ss'),parseInt(tdate),"change") 
+ 
+  
   // })
     // console.log(available)
     // alert(available.length) 
@@ -102,7 +144,7 @@ import PickCalendar from './PickCalendar';
     // setAvailabilty(available)
   }
   )
-  },[])
+  },[fd])
   //  let [date,setDate]=useState('');
    let date=localStorage.getItem("user_date")
 console.log(date)
@@ -130,21 +172,14 @@ console.log(date)
   month[10] = "November";
   month[11] = "December";
 
-  
-  // var m = month[date.getMonth()];
-  // var dd1 = String(date.getDate()).padStart(2, '0');
-//  let userday=w+","+m+" "+dd1;
-
-  
    let showHandler=(i,index)=>{
-     alert(index)
-    // setTimeout(() => setShow(false), 0);
-    // show.[index]=false;
-    setShow(false);
-    // setData.filter(i=>{
-    //   return i[0].id!=e 
-    // })   
-     
+
+     console.log("show hide hadhsd")
+     if (show === index) {
+      setShow(-1);
+    } else {
+      setShow(index);
+    }
    }
    let submitButton=(e)=>{
     e.preventDefault();
@@ -182,43 +217,24 @@ console.log(date)
                 
                 <div class="col s5 m5 l5 xl5 ">
                    <div class="day-text">
-                  
                    {date.substring(0,15)}
                    </div>
-
-
                    <div class="time-slot-main ">   
-                                 
-                   
-
                    {
-                     data.map((i,index)=>(
-                     
+                     data.map((i,index)=>(                    
                     
-                       <div>
-                       
-                   
-                    {
-                    
-                      show ?  <a class=" btn time-btn" onClick={(e)=>showHandler(i,index)} >{i}</a>:
+                       <div key={i.id}>                
+                       {show!==index ?
+                        <a class=" btn time-btn" onClick={(e)=>showHandler(i,index)} >{i}</a>: 
                     (
                       <div class="row hide-btn mb0">
-                         <div class="col s6 m6 l6 xl6 "><a class=" btn time-btn-hide ">{i}</a></div> 
-                         <div class="col s6 m6 l6 xl6 "><button class="btn confirm-btn-hide" onClick={e=>confirmClick(i)}>Confirm</button></div>
+                        <div class="col s6 m6 l6 xl6 "><a class=" btn time-btn-hide" onClick={(e)=>showHandler(i,index)}>{i}</a></div> 
+                        <div class="col s6 m6 l6 xl6 "><button class="btn confirm-btn-hide" onClick={e=>confirmClick(i)}>Confirm</button></div>
                       </div>
-                    )
-                 
-                    }
- 
-                       </div>
+                    )}
+                     </div>
                      ))
-                   }                                            
-
-
-
-
-
-                  
+                   }                                                            
                    </div>
                 </div>
               </div>

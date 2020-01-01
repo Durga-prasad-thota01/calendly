@@ -48,19 +48,15 @@ const MyCalendar =( props) => {
       // alert(userDetails)
    
       
-      if(userDetails.length) {
-        
+      if(userDetails.length) {        
        
         localStorage.setItem("user_name1",userDetails[0].first_name)
         localStorage.setItem("user_id1",userDetails[0].id)
       
         if(localStorage.getItem("user_id1")){
-        axios.get("https://sam-project.herokuapp.com/api/setavailability/")
-        
-      
-      .then(resp=>{
-       
-
+        axios.get("https://sam-project.herokuapp.com/api/setavailability/")      
+      .then(resp=>{       
+            console.log(resp.data,"respsps")
         let available=resp.data.filter(i=>{
           // alert(i.user_id,localStorage.getItem("user_id1"))
    
@@ -68,9 +64,15 @@ const MyCalendar =( props) => {
         })
         // console.log(available)
         // alert(available.length)
+        
+        if(available){
+          console.log(available,"available")
+          localStorage.setItem("id",available[0].id)
+        }
 
         if(!available.length){
           props.history.push("/");
+          
         }
         setAvailabilty(available)
       }
@@ -109,7 +111,6 @@ const MyCalendar =( props) => {
       weekday[5] = "fri";
       weekday[6] = "sat";
     
-      
       var dd1 = String(date.getDate()).padStart(2, '0');
       var mm1 = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
       var yyyy1 = date.getFullYear();
@@ -120,8 +121,6 @@ const MyCalendar =( props) => {
     //  alert(availability[0].setday)
       if(today1>=today){
         let available = weekday[date.getDay()];
-    
-      
        let day= availability[0].setday.filter(i=>{
         //  alert(i.day+available)
           return i.day==available

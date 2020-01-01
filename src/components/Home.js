@@ -24,6 +24,7 @@ export default function Home(props) {
         
     // { headers: {"Authorization" : `Bearer ${localStorage.getItem("access_token")}`}})
     .then(resp=>{
+      console.log(resp.data,"user")
       // alert(resp.data)
       // alert(localStorage.getItem("user_id"))
       let available=resp.data.filter(i=>{
@@ -44,7 +45,7 @@ export default function Home(props) {
     axios.get("https://sam-project.herokuapp.com/api/Schedule/",
     { headers: {"Authorization" : `OAuth2.0 ${token}`} } 
     )
-      .then(resp=>console.log(resp.data))
+      .then(resp=>console.log(resp.data,"home"))
     
 
     // let meeting={  

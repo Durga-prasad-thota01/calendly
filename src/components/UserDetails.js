@@ -3,7 +3,7 @@ import M from "materialize-css";
 import moment from 'moment';
 
 import { 
-  Link,
+  Link,withRouter,Redirect
   
 } from 'react-router-dom';
 import axios from 'axios';
@@ -12,7 +12,7 @@ import Chips from 'react-email-chips';
 import './meeting.css';
 import { string } from 'prop-types';
 
- function UserDetails() {
+ function UserDetails(props) {
   let [addguestshow,setAddguestshow]=useState(false);
   let [efullname,setEfullname]=useState('');
   let [name,setName]=useState("");
@@ -24,12 +24,24 @@ import { string } from 'prop-types';
   let [data,setData]=useState([]);
   let [time,setTime]=useState([]);
   let [time1,setTime1]=useState([]);
-
+  let[id,setId]=useState([]);
+  let[start_time_date,setStart_time_date] =useState("");
+  let [usr_id,setUsr_id]=useState('');
+  let [start_dat,setState_dat]=useState('');
   
   // let [addguest,setAddGuest]=useState("");
 
-    useEffect(()=>{
-      let u_time=localStorage.getItem("time");          
+    useEffect(()=>{     
+      let u_time=localStorage.getItem("time"); 
+      let date=localStorage.getItem("user_date");
+      let odate=moment(date).format('YYYY-MM-DD');
+      const dateTime = moment(`${odate} ${u_time}`, 'YYYY-MM-DD HH:mm:ss').format();  
+       let u_id=localStorage.getItem("user_id1")
+      console.log(moment(dateTime).format(),u_id,"localtime")
+      setStart_time_date(dateTime);
+      setState_dat(odate)
+      setId(u_id)
+      console.log(moment(date + ' ' + u_time, "YYYY-MM-DD HH:mm"),"utime")        
       const hours = [];
       let hour = parseFloat(u_time);          
       hours.push(moment({ hour }).format('h:mm A'));
@@ -42,15 +54,24 @@ import { string } from 'prop-types';
       if(hours){
         // console.log(hours)
         setTime(hours[0])
-        setTime1(hours[1])
-
-        console.log(hours[0],hours[1],"clicked")
+        setTime1(hours[1])      
+        let date=localStorage.getItem("user_date") 
+         console.log(date,hours[0],"both")
+        let a = moment()
+      let b = moment().add(30, 'minute')
+          console.log(a,b.format,"a&b")
+        let dateTime = moment(date + ' ' + hours[0], 'DD/MM/YYYY HH:mm');  
+       console.log(dateTime.format(),"format")
+        let odate= moment(date + " " + hours[0]).format()
+        // let odate=moment(date,hours[0]).format();
+        console.log(odate,"odate")
       }
   
       
     },[])
     let date=localStorage.getItem("user_date")
 
+    
   
   let addguestHandler=()=>{
     setAddguestshow(true); 
@@ -65,25 +86,39 @@ import { string } from 'prop-types';
        setGuestEmails(details);
   }
 
+
   let usersubmitHandler=(e)=>{
     e.preventDefault(e);  
-
+     
     console.log(guestemails);
 
-
-  //  alert(name+email+description+guestemail)
-  let formdata={
-    name:name,
-    email:email,
-    start_date_time: "2019-11-17T00:00:00Z",
-    desciption: description,  
-    guest_name:guestemails
-  }
-    axios.post("https://purview-sam-app.herokuapp.com/api/schedule/",
+ let formdata={   
+  "user_id":localStorage.getItem("user_id1"),  
+  "Setavailability_id": 1,  
+  "name":name,
+  "email":email,
+  "start_date_time":start_time_date.toString(),
+  "start_date": start_dat,
+  "description": description,
+  "guest_name":guestemails
+}
+ 
+    axios.post("https://sam-project.herokuapp.com/api/schedule/",
      formdata,
-    )
-   
-    .then(resp=>console.log(resp.data));
+    )   
+  .then(resp=>{
+    console.log(resp.data)
+    let email=localStorage.getItem("user_email");
+    console.log(email,"userdetails EMail")
+    if(resp.data){       
+      props.history.push(`/Meeting/${email}`)
+
+    }
+  })
+  .catch(error=>{
+   alert(Error);
+  })
+  
   }
   const pattern = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
     return (
@@ -93,7 +128,7 @@ import { string } from 'prop-types';
       <Link to="PickTime" class="material-icons meet-icon"></Link>
          {/* <div class="meet-icon"></div>   */}
       </div>
-      <div class="event-title">John Doe</div>
+      <div class="event-title">{localStorage.getItem("user_name")}</div>
       <div class="meeting-time ">30 minutes of meeting</div>
       <div class="row time-row mb0">
        <div class="col s1 m1 l1 xl1  mins">
@@ -181,4 +216,4 @@ import { string } from 'prop-types';
         </div>
     )
 }
-export default UserDetails;
+export default withRouter(UserDetails) ;

@@ -37,8 +37,8 @@ export default function Login(props) {
        let userName=response.profileObj.givenName
        localStorage.setItem("user_name",userName)
   let grant_type="convert_token";
-  let client_id="5Juwijk7kPheNWt1PWDstJvwRuHnsiI8t6cYohlD";
-  let client_secret="jPgwR24z5Mb1GQcPrY7PfNIOBnvIOybA4pWqaZLyTl45YYTkKkOZRO5Bn3ZeQZfHbZcMzBiuBrLttnVK7Vq22IGbj9hImjB2CL3NwMnLRcvANEHzUg1RFz67kQVkxZqp";
+  let client_id="Qf36Zcnn0W4itIclk9xfbd5ZkYQJQhwAbrfUTolQ";
+  let client_secret="Rt0tY1w8UkecBxNEgsbh4g72AXMKDKCP1apsVMRUG4y9ulIjGFgjzJs3wSRnjmDZyGpryaTjNftoPgURetQFggO579lPMqpFwwnBLZrsyI89s6z7BGdB5jFFwu5aDvXr";
   let backend="google-oauth2";
   let token=response.Zi.access_token;
 

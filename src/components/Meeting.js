@@ -7,9 +7,15 @@ import MyCalendar from './MyCalendar';
 import PickTime from './PickTime';
 
 // import Calendar from '../calendar/Calendar';
-export default function Meeting() {
+export default function Meeting(props) {
 
   // let [show1,setShow1]=useState(true);
+  React.useEffect(()=>{
+       let email=props.match.params.email;
+       console.log(email,"email")
+       localStorage.setItem("user_email",email)
+
+  },[])
   return (
     <div>
      <div class="card meet-card">
