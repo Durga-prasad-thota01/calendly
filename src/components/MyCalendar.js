@@ -121,19 +121,22 @@ const MyCalendar =( props) => {
     //  alert(availability[0].setday)
       if(today1>=today){
         let available = weekday[date.getDay()];
-       let day= availability[0].setday.filter(i=>{
-        //  alert(i.day+available)
-          return i.day==available
-        })
-        // alert(day.length)
-        // console.log(day)
-        if(day.length){
-          localStorage.setItem("user_date",date)
-          props.history.push("/PickTime");
+        if(availability){
+          let day= availability[0].setday.filter(i=>{
+            //  alert(i.day+available)
+              return i.day==available
+            })
+            // alert(day.length)
+            // console.log(day)
+            if(day.length){
+              localStorage.setItem("user_date",date)
+              props.history.push("/PickTime");
+            }
+            else{
+              alert("this days user was unavailable")
+            }
         }
-        else{
-          alert("this days user was unavailable")
-        }
+       
       }
       else{
         alert("Please Add Valid Date")
