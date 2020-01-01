@@ -107,13 +107,13 @@ import { string } from 'prop-types';
      formdata,
     )   
   .then(resp=>{
-    console.log(resp.data)
+   console.log(resp.data)
     let email=localStorage.getItem("user_email");
     console.log(email,"userdetails EMail")
     if(resp.data){       
       props.history.push(`/Meeting/${email}`)
 
-    }
+    } 
   })
   .catch(error=>{
    alert(Error);
@@ -151,14 +151,14 @@ import { string } from 'prop-types';
           <div class="form-field">
       <div class="input-field mb0 ">
           <label class="frm-label">Name<sup>*</sup></label>
-          <input placeholder=" " id="first_name" type="text" class="validate user-input"
+          <input placeholder=" " id="first_name" type="text" class="validate user-input" required
            onChange={(e)=>setName(e.target.value)}
           />
           
         </div>
         <div class="input-field mb0">
         <label class="frm-label">Email<sup>*</sup></label>
-          <input placeholder=" " type="email" class="validate user-input"
+          <input placeholder=" " type="email" class="validate user-input" required
           onChange={(e)=>setEmail(e.target.value)}
           />
           
