@@ -185,8 +185,15 @@ console.log(date)
     e.preventDefault();
     // alert("hgh")
    }
-   console.log(data)
-    let email=localStorage.getItem('user_name1')
+   console.log(data)    
+   let redirectPage=()=>{     
+    let email=localStorage.getItem('user_email');
+    if(email){
+       props.history.push(`/Meeting/${email}`)
+    }
+    
+
+    }
     return (
         <div>           
              <div class="card pick-card">
@@ -195,7 +202,7 @@ console.log(date)
                    <div class="meet-card pickcard">
                      {/* <div class=""> */}
 
-                      <Link to="/Meeting/${email)}/" class="material-icons meet-icon"></Link>
+                      <a class="material-icons meet-icon" onClick={redirectPage}></a>
                           {/* <div class="meet-icon"></div>  */}
                      {/* </div> */}
                       <div class="event-title">{localStorage.getItem("user_name1")}</div>
