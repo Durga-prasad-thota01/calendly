@@ -65,6 +65,12 @@ export default function Home(props) {
     const scheduleHandler=()=>{
       setShow(false);
     }
+    let redirectToPage=()=>{
+        let email=localStorage.getItem("user_email");
+        if(email){
+          props.history.push(`/Meeting/${email}`)
+        }
+    }
   return (
     <div>
         <Header/>
@@ -82,9 +88,9 @@ export default function Home(props) {
                    <div class="usr-nam">{localStorage.getItem("user_name")}</div>
                 
                   <div class="usr-link">
-                  <Link to="/Meeting">
+                  <a onClick={redirectToPage}>
                   sam.com/Meeting/{localStorage.getItem("user_email")}
-                  </Link>
+                  </a>
                   </div>
                 
                 </div>
