@@ -712,7 +712,7 @@ display: none !important;
 
 .emailchips{
 
-  height: 57px;
+  /* height: 57px; */
 }
 
 .chip.not-valid .chip-value, .chip.not-valid .chip-delete-button {
