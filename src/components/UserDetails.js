@@ -66,13 +66,8 @@ import { string } from 'prop-types';
         // let odate=moment(date,hours[0]).format();
         console.log(odate,"odate")
       }
-  
-      
     },[])
     let date=localStorage.getItem("user_date")
-
-    
-  
   let addguestHandler=()=>{
     setAddguestshow(true); 
   }  

@@ -49,13 +49,16 @@ export default function TodayMeeting() {
       setTodayaccept(true);
       setTodaydecline(false);
     }
-    let declineHandler=(id)=>{
+    let declineHandler=(id,index,e)=>{
+      e.preventDefault();
       console.log(id);
+       let copy=Object.assign([],data);
+       copy.splice(index,1);
+       setData(copy);
        if(id){         
          axios.delete(`https://sam-project.herokuapp.com/api/todaymeeting/${id}/`)
          .then(resp=>{
-           console.log(resp.data)
-           window.location.reload(false);
+           console.log(resp.data)        
          })
          .catch(error=>{
            console.log(error)
@@ -108,8 +111,10 @@ export default function TodayMeeting() {
                       {
                         (show!==index)?
                         ( <div>
-                        <a class=" btn-small btn-ntf green accent-3"onClick={e=>acceptHandler(i.id,index)} >Accept</a>
-                        <a class=" btn-small btn-ntf red"onClick={e=>declineHandler(i.id)}>Decline</a>
+                          <form>
+                        <button class=" btn-small btn-ntf green accent-3" onClick={e=>acceptHandler(i.id,index)} >Accept</button>
+                        <button class=" btn-small btn-ntf red" onClick={e=>declineHandler(i.id,index)}>Decline</button>
+                        </form>
                         </div>
                         ):                      
                         (
