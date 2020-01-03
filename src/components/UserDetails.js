@@ -1,7 +1,6 @@
 import React, {useEffect, useState } from 'react';
 import M from "materialize-css";
 import moment from 'moment';
-
 import { 
   Link,withRouter,Redirect
   
@@ -33,6 +32,13 @@ import { string } from 'prop-types';
 
     useEffect(()=>{     
       let u_time=localStorage.getItem("time"); 
+     let time2=moment(u_time,'hh:mm A').add(30, 'minutes').format('hh:mm A');
+     if(u_time || time2){
+      setTime(u_time)
+      setTime1(time2)
+     }
+     console.log(u_time,time2,"time2");
+      console.log(u_time,"time")
       let date=localStorage.getItem("user_date");
       let odate=moment(date).format('YYYY-MM-DD');
       const dateTime = moment(`${odate} ${u_time}`, 'YYYY-MM-DD HH:mm:ss').format();  
@@ -51,10 +57,8 @@ import { string } from 'prop-types';
               minute: 30
           }).format('h:mm A')
       );
-      if(hours){
-        // console.log(hours)
-        setTime(hours[0])
-        setTime1(hours[1])      
+      if(hours){        // console.log(hours)
+             
         let date=localStorage.getItem("user_date") 
          console.log(date,hours[0],"both")
         let a = moment()

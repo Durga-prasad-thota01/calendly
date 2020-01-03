@@ -1,6 +1,5 @@
 import React,{useState,useEffect} from 'react';
 import {
-  
   Link,
 } from 'react-router-dom';
 import axios from 'axios';
@@ -10,9 +9,7 @@ import { GoogleLogin } from 'react-google-login';
 
 import './meeting.css';
 export default function Login(props) {
- 
-  
-  let[profile,setProfile]=useState('')
+   let[profile,setProfile]=useState('');
   let[name,setName]=useState(''); 
   let[givenname,setGivenname] =useState('');
   let[email,setEmail]=useState(''); 
@@ -53,7 +50,7 @@ export default function Login(props) {
   
      if(resp.data){
       let key=resp.data.access_token;
-      localStorage.setItem("access_token",key)  
+      localStorage.setItem("access_token",key) 
         axios.get(`https://sam-project.herokuapp.com/api/users/`,
       { headers: {"Authorization" : `Bearer ${key}`}})
             .then(resp=>{
@@ -66,10 +63,6 @@ export default function Login(props) {
             })
    }
 })
-
-
-
-
   },
   err=>{
     // alert(err)
@@ -135,31 +128,14 @@ export default function Login(props) {
 // })
 // props.history.push("/Availability");
 // }
-    
 // }
- 
   )
-
-
-
-
-
-
-
-
-
- 
   }  
      else{  
             alert("error");   
-         } 
-     
+         }   
  }
- 
-  
- 
-  return (
-    
+   return ( 
     <div >
       <div class="backimg">
         <div class="row">

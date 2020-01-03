@@ -687,7 +687,7 @@ display: none !important;
     border-bottom: none !important;
 }
 .chip.not-valid .chip-value{
-    display: none !important;
+    /* display: none !important; */
 }
 .chip:focus {
     outline: none;
@@ -1046,7 +1046,7 @@ a.confirm-btn-hide:hover {
    
 }
 .home-time-slot{
-    width: 136px !important;
+    width: 140px !important;
     padding-left: 6px !important;
 }
 .acs-hrs{

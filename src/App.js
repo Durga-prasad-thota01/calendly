@@ -1,6 +1,4 @@
 import React from 'react';
-
-
 import {
   Route,
   Link,
@@ -19,16 +17,9 @@ import Availability from './components/Availability';
 import TimeSlot from './components/TimeSlot';
 
 function App() {
-  
   return (
     <BrowserRouter>
     <div className="App">
-      {/* <Calendar/> */}
-      {/* <MyCalendar/> */}
-      {/* <Meeting /> */}
-      {/* <UserDetails /> */}
-      {/* <PickTime/> */}
-      
       <Route exact path="/" component={Login}/>
       <Route path="/Availability" component={Availability}/>
       <Route path="/Meeting/:email/" component={Meeting}/>

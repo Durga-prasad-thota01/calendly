@@ -12,8 +12,6 @@ import 'react-big-calendar/lib/css/react-big-calendar.css';
 // import BigCalendar from 'react-big-calendar';
 // import moment from 'moment';
 const localizer = momentLocalizer(moment);
- 
-
 // const CURRENT_DATE = moment().toDate();
 // let testHandler=(e)=>
 // {
@@ -21,7 +19,6 @@ const localizer = momentLocalizer(moment);
 // }
 // const ColoredDateCellWrapper = ({children, value}) =>
 // alert(value) 
-
   // React.cloneElement(Children.only(children), {
 
     // style: {
@@ -46,15 +43,13 @@ const MyCalendar =( props) => {
 
       })
       // alert(userDetails)
-   
-      
       if(userDetails.length) {        
        
         localStorage.setItem("user_name1",userDetails[0].first_name)
         localStorage.setItem("user_id1",userDetails[0].id)
       
         if(localStorage.getItem("user_id1")){
-        axios.get("https://sam-project.herokuapp.com/api/setavailability/")      
+        axios.get("https://sam-project.herokuapp.com/api/setavailability/")
       .then(resp=>{       
             console.log(resp.data,"respsps")
         let available=resp.data.filter(i=>{

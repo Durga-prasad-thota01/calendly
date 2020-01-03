@@ -1,8 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import {
-  
-  Link,withRouter
-  
+import {Link,withRouter
 } from 'react-router-dom';
 import axios from 'axios';
 import moment from 'moment';
@@ -30,15 +27,12 @@ import PickCalendar from './PickCalendar';
   //             //  setDate(localStorage.getItem("user_date"))
               
   //             },[])
-
   let confirmClick=(time)=>{
     if(time){
       localStorage.setItem("time",time);
       props.history.push("/UserDetails")
     }
-    
   }
-
    useEffect(()=>{
 
     // if (!localStorage.length) 
@@ -84,21 +78,21 @@ import PickCalendar from './PickCalendar';
         setFd(fdat)
       }
       else{
-        let fda=resp.data.from_time;
+        let fda=moment(resp.data.from_time,'h:mm').format("h:mm");
         setFd(fda)
       }
-      if(fd){        
+      if(fd){           
         let fdate=resp.data.from_time;            
         let tdate=resp.data.to_time;
         console.log(parseInt(fd),parseInt(tdate),"fd");
         const hours = [];
             for(let hour =parseInt(fd) ; hour < parseInt(tdate); hour++) {
-      hours.push(moment({ hour }).format('h:mm A'));
+      hours.push(moment({ hour }).format('h:mm a'));
       hours.push(
           moment({
               hour,
               minute: 30
-          }).format('h:mm A')
+          }).format('h:mm a')
       );
   }
      if(hours){
@@ -219,7 +213,6 @@ console.log(date)
                         <PickCalendar/>
                       </div>
                     </div>  
-
                 </div>
                 
                 <div class="col s5 m5 l5 xl5 ">

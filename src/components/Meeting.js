@@ -20,7 +20,7 @@ export default function Meeting(props) {
     <div>
      <div class="card meet-card">
       <div class="">
-      <a class="material-icons meet-icon"></a>
+      <Link to="/"><a class="material-icons meet-icon"></a></Link>
          {/* <div class="meet-icon"></div>   */}
       </div>
       <div class="event-title">{localStorage.getItem("user_name1")}</div>

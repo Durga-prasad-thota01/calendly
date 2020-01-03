@@ -6,20 +6,18 @@ import{
 } from 'react-router-dom';
 import axios from 'axios';
  function Availability(props){
- 
   let [from_time,setFrom_time]=useState("");
   let [to_time,setTo_time]=useState("");
   let [data,setData]=useState("");
   let [info,setInfo]=useState([]);
   useEffect(()=>{
     if (!localStorage.length) 
-    {         
+    {
          props.history.push("./"); 
                }
               },[])
   let handlechange=(e,day,ind)=>{
     // alert(e+day+ind)
-
     if(e.target.checked===true){
       let date={"day":day};
       let data=[...info,date];
@@ -41,8 +39,8 @@ import axios from 'axios';
     e.preventDefault();
     console.log(from_time,to_time);
     if(info.length){
-    let data={ 
-      "user_id": localStorage.getItem("user_id"),           
+    let data={
+      "user_id": localStorage.getItem("user_id"),
       "from_time": from_time,
       "to_time": to_time,
       "setday": info
@@ -63,7 +61,6 @@ import axios from 'axios';
    document.getElementById("err_msg").innerHTML = "please select your availability days?";
   }
 }
-  
   return (
            <div>
              <div class="row wholee">
@@ -147,15 +144,15 @@ import axios from 'axios';
                             <option value="19:30 PM">07:30 PM</option>
                             <option value="20:00 PM">08:00 PM</option>
                             <option value="20:30 PM">08:30 PM</option>
-                            <option value="21:00 PM">09:00 PM</option>
-                            <option value="21:30 PM">09:30 PM</option>
-                            <option value="22:00 PM">10:00 PM</option>
+                           <option value="21:00 PM">09:00 PM</option>
+                           <option value="21:30 PM">09:30 PM</option>
+                          <option value="22:00 PM">10:00 PM</option>
                             <option value="22:30 PM">10:30 PM</option>
                             <option value="23:00 PM">11:00 PM</option>
                             <option value="23:30 PM">11:30 PM</option>
                             <option value="00:00 AM">12:00 AM</option>
                             <option value="00:30 AM">12:30 AM</option>                      
-                          <option value="01:00 AM">01:00 AM</option>
+                            <option value="01:00 AM">01:00 AM</option>
                           <option value="01:30 AM">01:30 AM</option>
                           <option value="02:00 AM">02:00 AM</option>
                           <option value="02:30 AM">02:30 AM</option>
@@ -213,7 +210,7 @@ import axios from 'axios';
                       value="monday"
                      /><br/>
                         <p class=" sun-label" >Mon</p>
-                         <span class="checkmark"> 
+                         <span class="checkmark">
                           </span>
                    </label>
           </div>
@@ -221,11 +218,9 @@ import axios from 'axios';
                     <label class="cont">
                       <input type="checkbox"  id="checkbox"
                      onChange={(e)=>handlechange(e,"tue",3)}
-                      
                       /><br/>
                         <p class=" sun-label" >Tue</p>
                           <span class="checkmark">
-
                            </span>
                      </label>
              </div>
@@ -237,7 +232,6 @@ import axios from 'axios';
                        /><br/>
                           <p class=" sun-label" >Wed</p>
                             <span class="checkmark">
-
                            </span>
                      </label>
                  </div>
