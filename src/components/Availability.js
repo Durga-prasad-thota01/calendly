@@ -51,7 +51,7 @@ import axios from 'axios';
         ,
       { headers: {"Authorization" : `Bearer ${localStorage.getItem("access_token")}`}})
       .then(resp=>{console.log(resp.data)
-        if(resp.data){
+        if(resp.data) {
           localStorage.setItem("id",resp.data.id)
           props.history.push("/Home") 
         }          
